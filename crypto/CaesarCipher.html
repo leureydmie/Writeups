@@ -1,0 +1,50 @@
+﻿<html>
+<body>
+
+<script>
+	/*
+	 * Implementation of the caesar cipher
+	 * https://en.wikipedia.org/wiki/Caesar_cipher
+	 */ 
+
+	/*
+	 * Encrypt a string
+	 * Returns a string containing hex codes separated with spaces
+	 */
+	function encrypt(message, index) {
+		var encryptedMessage = "";
+		for (var count = 0; count < message.length; count++) {
+			var encryptedChar = message.charCodeAt(count) + index;
+			encryptedMessage += encryptedChar.toString(16) + " ";
+		}
+		return encryptedMessage
+	}
+	
+	/*
+	 * Decrypt an encrypted string with known index
+	 * Returns the decrypted message as a string
+	 */
+	function decrypt(message, index) {
+		var encryptedArray = message.split(' ');
+		var decrypted = "";
+		for(var count = 0; count < message.length; count++) {
+			var decryptedHexChar = parseInt("0x" + encryptedArray[count]) - index;
+			decrypted += String.fromCharCode(decryptedHexChar);
+		}
+		return decrypted
+	}
+
+	/*
+	 * Test it !
+	 */
+	var message = "This is a test";
+	var encryptedMessage = encrypt(message, 3);
+	document.write(encryptedMessage + "<br>");
+	// Let's bruteforce it !
+	for(var index = 0; index < 26; index++) {
+		document.write(index + ": " + decrypt(encryptedMessage, index) + "<br>");
+	}
+</script>
+
+</body>
+</html>
